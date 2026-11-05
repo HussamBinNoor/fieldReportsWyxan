@@ -408,9 +408,9 @@ describe('upload engine', () => {
   test('lets only one of two workers upload the same job', async () => {
     const store = new MemoryUploadStore();
     await seed(store, [image()]);
-    let release: () => void = () => undefined;
+    let release = () => {};
     const gate = new Promise<void>(resolve => {
-      release = resolve;
+      release = () => resolve();
     });
     let started = 0;
     const uploader: ReportUploader = {
@@ -432,7 +432,9 @@ describe('upload engine', () => {
     };
     const first = processQueue(deps);
     const second = processQueue(deps);
-    await new Promise(resolve => setTimeout(resolve, 20));
+    await new Promise<void>(resolve => {
+      setTimeout(() => resolve(), 20);
+    });
     expect(started).toBe(1);
     release();
     const outcomes = await Promise.all([first, second]);

@@ -99,8 +99,7 @@ export class MemoryUploadStore implements UploadStore {
       .map(cloneImage);
   }
 
-  async markImageUploading(imageId: string, now: number): Promise<void> {
-    void now;
+  async markImageUploading(imageId: string, _now: number): Promise<void> {
     const image = this.images.get(imageId);
     if (!image) {
       return;
@@ -108,8 +107,7 @@ export class MemoryUploadStore implements UploadStore {
     image.uploadStatus = 'uploading';
   }
 
-  async markImageUploaded(imageId: string, serverImageId: string, now: number): Promise<void> {
-    void now;
+  async markImageUploaded(imageId: string, serverImageId: string, _now: number): Promise<void> {
     const image = this.images.get(imageId);
     if (!image) {
       return;
@@ -123,9 +121,8 @@ export class MemoryUploadStore implements UploadStore {
     imageId: string,
     error: string,
     status: ImageStatus,
-    now: number,
+    _now: number,
   ): Promise<void> {
-    void now;
     const image = this.images.get(imageId);
     if (!image) {
       return;
