@@ -78,6 +78,11 @@ android {
     compileSdk rootProject.ext.compileSdkVersion
 
     namespace "com.wyxan.fieldreports"
+    // Icon fonts must stay uncompressed. Android cannot load a deflated .ttf
+    // from assets, and the tab glyphs then render as blank.
+    androidResources {
+        noCompress "ttf", "otf"
+    }
     defaultConfig {
         applicationId "com.wyxan.fieldreports"
         minSdkVersion rootProject.ext.minSdkVersion

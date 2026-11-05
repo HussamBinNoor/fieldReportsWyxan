@@ -21,6 +21,7 @@ The server is the authority for completed reports. Repeating an upload uses the 
 | --- | --- | --- |
 | App | React Native CLI 0.88.1, TypeScript, Hermes, New Architecture | Required CLI workflow. Versions match the template that was generated for this environment. |
 | Navigation | React Navigation 7, native stack and bottom tabs | Small set of screens, native transitions. |
+| Icons | `@react-native-vector-icons/feather` | The current React Native Vector Icons packages, one font instead of every set. Android copies `Feather.ttf` into the APK and stores it uncompressed, because a deflated font asset does not load. |
 | Local database | `@op-engineering/op-sqlite` | SQL, transactions, and foreign keys without a second storage system for the queue. |
 | Photos | `react-native-image-picker`, `@bam.tech/react-native-image-resizer` | Camera and gallery, plus JPEG resize that applies orientation on Android. |
 | Files | `react-native-blob-util` | App-private copies, file size, and SHA-256. |
