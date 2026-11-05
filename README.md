@@ -228,6 +228,8 @@ A separate 14 MB gallery photo was compressed and saved locally before that rese
 
 Not observed: a WorkManager upload while the process stayed dead. After force-stop, uploads ran once the app was open again and the network was back.
 
+A later check on the same phone, with Wi-Fi and mobile data disabled, saved one more report (`Functionalcheck2033g`, one photo). Force-stop left it on the device and absent from the server. Diagnostics then armed "Drop next 2 uploads". After the radios were enabled, that report became "Uploaded successfully" and the server had exactly one copy of it. The summary moved from 3 completed reports and 8 photos to 4 and 9. The new file is a JPEG under 5 MB. Reset was opened and cancelled, so local data stayed.
+
 ## Known limitations
 
 - Background delivery depends on Android. Doze, battery restrictions, and force-stop can delay or block WorkManager until the app is opened. The foreground queue is the path that was verified.

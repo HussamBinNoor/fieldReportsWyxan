@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   Image,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -40,7 +41,9 @@ export function CreateReportScreen({ navigation }: Props) {
 
   async function onCamera() {
     setError(null);
+    Keyboard.dismiss();
     const result = await takePhoto();
+    Keyboard.dismiss();
     if (result.error) {
       setError(result.error);
       return;
@@ -52,7 +55,9 @@ export function CreateReportScreen({ navigation }: Props) {
 
   async function onGallery() {
     setError(null);
+    Keyboard.dismiss();
     const result = await choosePhotos(MAX_IMAGES_PER_REPORT - assets.length);
+    Keyboard.dismiss();
     if (result.error) {
       setError(result.error);
       return;
@@ -88,6 +93,7 @@ export function CreateReportScreen({ navigation }: Props) {
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.flex}>
         <ScrollView
           contentContainerStyle={[styles.content, { paddingBottom: 28 + insets.bottom }]}
+          keyboardDismissMode="on-drag"
           keyboardShouldPersistTaps="handled">
           <Text style={styles.label}>Description</Text>
           <TextInput
