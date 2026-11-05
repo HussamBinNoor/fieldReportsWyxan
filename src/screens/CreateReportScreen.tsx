@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ErrorNote, PrimaryButton, Screen, SecondaryButton } from '../components/ui';
 import { formatBytes } from '../domain/format';
 import { validateDescription, validateImageCount } from '../domain/validation';
@@ -23,6 +24,7 @@ import { colors, space } from '../theme/theme';
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateReport'>;
 
 export function CreateReportScreen({ navigation }: Props) {
+  const insets = useSafeAreaInsets();
   const [description, setDescription] = useState('');
   const [assets, setAssets] = useState<SelectedAsset[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -84,7 +86,9 @@ export function CreateReportScreen({ navigation }: Props) {
   return (
     <Screen>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.flex}>
-        <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+        <ScrollView
+          contentContainerStyle={[styles.content, { paddingBottom: 28 + insets.bottom }]}
+          keyboardShouldPersistTaps="handled">
           <Text style={styles.label}>Description</Text>
           <TextInput
             value={description}
@@ -145,7 +149,6 @@ const styles = StyleSheet.create({
   content: {
     padding: space.md,
     gap: 12,
-    paddingBottom: 40,
   },
   label: {
     color: colors.ink,

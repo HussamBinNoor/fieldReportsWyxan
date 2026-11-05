@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ErrorNote, Screen, SecondaryButton, StatusPill } from '../components/ui';
 import { getUploadStore, type ReportWithImages } from '../db/sqliteStore';
 import { deliveryLabel } from '../domain/status';
@@ -20,6 +21,7 @@ const IMAGE_LABEL = {
 } as const;
 
 export function ReportDetailScreen({ route }: Props) {
+  const insets = useSafeAreaInsets();
   const [report, setReport] = useState<ReportWithImages | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -59,7 +61,7 @@ export function ReportDetailScreen({ route }: Props) {
 
   return (
     <Screen>
-      <ScrollView contentContainerStyle={styles.content}>
+      <ScrollView contentContainerStyle={[styles.content, { paddingBottom: 28 + insets.bottom }]}>
         <StatusPill label={deliveryLabel(report.status)} status={report.status} />
         <Text style={styles.description}>{report.description}</Text>
         <Text style={styles.meta}>Created {formatWhen(report.createdAt)}</Text>
@@ -88,7 +90,6 @@ const styles = StyleSheet.create({
   content: {
     padding: space.md,
     gap: 12,
-    paddingBottom: 32,
   },
   description: {
     color: colors.ink,

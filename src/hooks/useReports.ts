@@ -26,7 +26,7 @@ export function useReportList(): {
       reload();
       const unsubscribe = subscribeUploadEvents(() => {
         if (active) {
-          load().catch(() => undefined);
+          reload().catch(() => undefined);
         }
       });
       return () => {
